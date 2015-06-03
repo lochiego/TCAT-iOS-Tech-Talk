@@ -10,6 +10,7 @@
 		B7DE8D0E1B1FB5040069D1E5 /* TaskManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = B7DE8D0D1B1FB5040069D1E5 /* TaskManagement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7DE8D141B1FB5050069D1E5 /* TaskManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DE8D081B1FB5040069D1E5 /* TaskManagement.framework */; };
 		B7DE8D1B1B1FB5050069D1E5 /* TaskManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DE8D1A1B1FB5050069D1E5 /* TaskManagementTests.swift */; };
+		B7DE8D251B1FB5950069D1E5 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DE8D241B1FB5950069D1E5 /* Notes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		B7DE8D131B1FB5050069D1E5 /* TaskManagementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskManagementTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7DE8D191B1FB5050069D1E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7DE8D1A1B1FB5050069D1E5 /* TaskManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagementTests.swift; sourceTree = "<group>"; };
+		B7DE8D241B1FB5950069D1E5 /* Notes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				B7DE8D0D1B1FB5040069D1E5 /* TaskManagement.h */,
 				B7DE8D0B1B1FB5040069D1E5 /* Supporting Files */,
+				B7DE8D241B1FB5950069D1E5 /* Notes.swift */,
 			);
 			path = TaskManagement;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DE8D251B1FB5950069D1E5 /* Notes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +327,7 @@
 		B7DE8D1F1B1FB5050069D1E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -332,12 +337,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		B7DE8D201B1FB5050069D1E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
