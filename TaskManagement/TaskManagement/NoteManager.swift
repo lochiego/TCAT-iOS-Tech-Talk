@@ -30,3 +30,34 @@ public protocol NoteManager {
     func addListener(listener: NoteEventListener)
     func removeListener(listener: NoteEventListener)
 }
+
+public class TaskManager: NoteManager {
+
+    public init() {
+        // no-op
+    }
+
+    public func fetchNotes() -> [Note] {
+
+    }
+    
+    public func create() -> Note {
+
+    }
+    
+    public func save(note: Note) {
+        
+    }
+    
+    public func delete(note: Note) {
+        
+    }
+    
+    public func addListener(listener: NoteEventListener) {
+        
+    }
+    
+    public func removeListener(listener: NoteEventListener) {
+        
+    }
+}
