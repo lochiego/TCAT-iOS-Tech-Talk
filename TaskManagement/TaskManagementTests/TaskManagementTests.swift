@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import TaskManagement
 
 class TaskManagementTests: XCTestCase {
     
@@ -21,16 +22,55 @@ class TaskManagementTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testReminder() {
+        let futureDate = NSDate()
+        var reminderTest = Reminder(name: "Dinner", description: "Chick-Fil-A tonight!", deadline:futureDate)
+        
+        XCTAssert(reminderTest.name == "Dinner", "Name not set")
+        XCTAssert(reminderTest.description == "Chick-Fil-A tonight!", "Description not set")
+        XCTAssert(reminderTest.deadline == futureDate, "Deadline not set")
+        XCTAssertNil(reminderTest.alarm, "Default alarm failed")
+        
+        
+        reminderTest = Reminder(name: "Dinner", description: "Chick-Fil-A tonight!", deadline:futureDate, alarm: NSDate())
+        XCTAssert(reminderTest.name == "Dinner", "Default initializer failed")
+        
+        XCTAssert(reminderTest.name == "Dinner", "Default initializer failed")
+        XCTAssert(reminderTest.description == "Chick-Fil-A tonight!", "Description not set")
+        XCTAssert(reminderTest.deadline == futureDate, "Deadline not set")
+        XCTAssertNotNil(reminderTest.alarm, "Alarm not set")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    func testTaskManager() {
+        let manager = TaskManager()
+        
+        let observer = TestObserver()
+        manager.addListener(observer)
+        
+        XCTAssert(manager.fetchNotes().count == 0, "Rogue note present in task manager")
+        let firstTask = manager.create()
+        XCTAssert(manager.fetchNotes().count == 1, "Did not add task to list")
+        
+        manager.updateProperty(firstTask, property: "name", value: "Something")
+        let updatedTask = manager.fetchNotes()[0]
+        XCTAssert(updatedTask.name == "Something", "Failed to update property")
+        
+        manager.delete(updatedTask)
+        XCTAssert(manager.fetchNotes().count == 0, "Failed to delete task properly")
+        
+        var sem = dispatch_semaphore_create(0)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            dispatch_semaphore_signal(sem)
+        })
+        dispatch_semaphore_wait(sem, dispatch_time(DISPATCH_TIME_NOW, 10))
+        XCTAssert(observer.notices == 3, "Did not receive events")
     }
     
+}
+
+class TestObserver: NoteEventListener {
+    var notices: Int = 0
+    func notify(event: NoteEvent) {
+        notices++
+    }
 }
