@@ -26,4 +26,5 @@ public struct Reminder: Note {
         self.deadline = deadline
         self.alarm = alarm
     }
+
 }
