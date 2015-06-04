@@ -33,8 +33,7 @@ public protocol NoteManager {
 }
 
 public class TaskManager: NoteManager {
-	typealias T = Task
-
+    
     public func fetchNotes() -> [Task] {
 
     }
