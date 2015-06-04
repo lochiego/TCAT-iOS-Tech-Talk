@@ -13,6 +13,7 @@
 		B7DE8D141B1FB5050069D1E5 /* TaskManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DE8D081B1FB5040069D1E5 /* TaskManagement.framework */; };
 		B7DE8D1B1B1FB5050069D1E5 /* TaskManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DE8D1A1B1FB5050069D1E5 /* TaskManagementTests.swift */; };
 		B7DE8D251B1FB5950069D1E5 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DE8D241B1FB5950069D1E5 /* Notes.swift */; };
+		B7DE8D291B2103530069D1E5 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DE8D281B2103530069D1E5 /* NoteManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		B7DE8D191B1FB5050069D1E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7DE8D1A1B1FB5050069D1E5 /* TaskManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagementTests.swift; sourceTree = "<group>"; };
 		B7DE8D241B1FB5950069D1E5 /* Notes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
+		B7DE8D281B2103530069D1E5 /* NoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				B7DE8D241B1FB5950069D1E5 /* Notes.swift */,
 				3353F7631AF58B10530402F3 /* Task.swift */,
 				9615F5851B21591400891718 /* Constants.swift */,
+				B7DE8D281B2103530069D1E5 /* NoteManager.swift */,
 			);
 			path = TaskManagement;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DE8D291B2103530069D1E5 /* NoteManager.swift in Sources */,
 				B7DE8D251B1FB5950069D1E5 /* Notes.swift in Sources */,
 				3353F021B127E55C6F50A20D /* Task.swift in Sources */,
 				9615F5861B21591400891718 /* Constants.swift in Sources */,
@@ -413,8 +417,7 @@
 				B7DE8D1F1B1FB5050069D1E5 /* Debug */,
 				B7DE8D201B1FB5050069D1E5 /* Release */,
 			);
-			defaultConfigurationIsVisible = 0;
-		};
+			defaultConfigurationIsVisible = 0;		};
 		B7DE8D211B1FB5050069D1E5 /* Build configuration list for PBXNativeTarget "TaskManagementTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
