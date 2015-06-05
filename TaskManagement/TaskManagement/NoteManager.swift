@@ -51,7 +51,9 @@ public class TaskManager: NoteManager {
     }
     
     public func delete(note: Task) {
-        
+        if let index = find(tasks, note) {
+            tasks.removeAtIndex(index)
+        }
     }
     
     public func addListener(listener: NoteEventListener) {
