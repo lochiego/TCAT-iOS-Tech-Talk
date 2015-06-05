@@ -35,6 +35,7 @@ public protocol NoteManager {
 public class TaskManager: NoteManager {
     
     private var tasks: [Task] = []
+    private var listeners: [NoteEventListener] = []
     
     public func fetchNotes() -> [Task] {
         return tasks
@@ -79,10 +80,15 @@ public class TaskManager: NoteManager {
     }
     
     public func addListener(listener: NoteEventListener) {
-        
+        listeners.append(listener)
     }
     
     public func removeListener(listener: NoteEventListener) {
-        
+        for (index, storedListener) in enumerate(listeners) {
+            if (storedListener === listener) {
+                listeners.removeAtIndex(index)
+                break
+            }
+        }
     }
 }
