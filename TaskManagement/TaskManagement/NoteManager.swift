@@ -37,6 +37,10 @@ public class TaskManager: NoteManager {
     private var tasks: [Task] = []
     private var listeners: [NoteEventListener] = []
     
+    public init() {
+        
+    }
+    
     public func fetchNotes() -> [Task] {
         return tasks
     }
@@ -44,6 +48,10 @@ public class TaskManager: NoteManager {
     public func create() -> Task {
         let newTask = Task()
         tasks.append(newTask)
+        
+        let event = NoteEvent(note: newTask, action: NoteAction.Created)
+        broadcast(event)
+        
         return newTask
     }
     
@@ -71,11 +79,14 @@ public class TaskManager: NoteManager {
         else {
             tasks.append(newNote)
         }
+        
+        broadcast(NoteEvent(note: newNote, action: NoteAction.Updated))
     }
     
     public func delete(note: Task) {
         if let index = find(tasks, note) {
             tasks.removeAtIndex(index)
+            broadcast(NoteEvent(note: note, action: NoteAction.Deleted))
         }
     }
     
@@ -90,5 +101,13 @@ public class TaskManager: NoteManager {
                 break
             }
         }
+    }
+    
+    private func broadcast(event: NoteEvent) {
+        dispatch_async(dispatch_get_main_queue(), {
+            for (listener) in self.listeners {
+                listener.notify(event)
+            }
+        })
     }
 }
