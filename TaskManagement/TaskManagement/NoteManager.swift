@@ -24,7 +24,7 @@ public protocol NoteEventListener : class {
 public protocol NoteManager {
     func fetchNotes() -> [Note]
     func create() -> Note
-    func save(note: Note)
+    func updateProperty(note: Note, property: String, value: AnyObject?)
     func delete(note: Note)
     
     func addListener(listener: NoteEventListener)
@@ -45,7 +45,7 @@ public class TaskManager: NoteManager {
 
     }
     
-    public func save(note: Note) {
+    public func updateProperty(note: Note, property: String, value: AnyObject?) {
         
     }
     
