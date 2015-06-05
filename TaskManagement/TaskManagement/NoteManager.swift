@@ -22,34 +22,32 @@ public protocol NoteEventListener : class {
 }
 
 public protocol NoteManager {
-    func fetchNotes() -> [Note]
-    func create() -> Note
-    func updateProperty(note: Note, property: String, value: AnyObject?)
-    func delete(note: Note)
+    typealias T: Note
+    func fetchNotes() -> [T]
+    func create() -> T
+    func updateProperty(note: T, property: String, value: AnyObject?)
+    func delete(note: T)
     
     func addListener(listener: NoteEventListener)
     func removeListener(listener: NoteEventListener)
 }
 
 public class TaskManager: NoteManager {
+	typealias T = Task
 
-    public init() {
-        // no-op
-    }
-
-    public func fetchNotes() -> [Note] {
+    public func fetchNotes() -> [Task] {
 
     }
     
-    public func create() -> Note {
+    public func create() -> Task {
 
     }
     
-    public func updateProperty(note: Note, property: String, value: AnyObject?) {
+    public func updateProperty(note: Task, property: String, value: AnyObject?) {
         
     }
     
-    public func delete(note: Note) {
+    public func delete(note: Task) {
         
     }
     
