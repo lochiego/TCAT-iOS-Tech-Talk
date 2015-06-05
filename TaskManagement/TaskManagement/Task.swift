@@ -11,11 +11,6 @@
 
 import Foundation
 
-let NAME = "name"
-let DESCRIPTION = "description"
-let DEADLINE = "deadline"
-let URGENT = "urgent"
-let IMPORTANT = "important"
 
 // Task
 
@@ -24,37 +19,37 @@ public class Task: Note, Equatable {
     private var properties: [String:AnyObject] = [:]
     public var name: String {
         get {
-            return properties[NAME] as! String
+            return properties[Constants.Task.NAME] as! String
         }
     }
     public var description: String {
         get {
-            return properties[DESCRIPTION] as! String
+            return properties[Constants.Task.DESCRIPTION] as! String
         }
     }
     public var deadline: NSDate? {
         get {
-            return properties[DEADLINE] as! NSDate?
+            return properties[Constants.Task.DEADLINE] as! NSDate?
         }
     }
     public var urgent: Bool {
         get {
-            return properties[URGENT] as! Bool
+            return properties[Constants.Task.URGENT] as! Bool
         }
     }
     public var important: Bool {
         get {
-            return properties[IMPORTANT] as! Bool
+            return properties[Constants.Task.IMPORTANT] as! Bool
         }
     }
 
     public init(id: NSUUID = NSUUID(), name: String = "", description: String = "", deadline: NSDate? = nil, urgent: Bool = false, important: Bool = false) {
         self.id = id
-        self.properties[NAME] = name
-        self.properties[DESCRIPTION] = description
-        self.properties[DEADLINE] = deadline
-        self.properties[URGENT] = urgent
-        self.properties[IMPORTANT] = important
+        self.properties[Constants.Task.NAME] = name
+        self.properties[Constants.Task.DESCRIPTION] = description
+        self.properties[Constants.Task.DEADLINE] = deadline
+        self.properties[Constants.Task.URGENT] = urgent
+        self.properties[Constants.Task.IMPORTANT] = important
     }
     
 }
