@@ -104,7 +104,7 @@ public class TaskManager: NoteManager {
     }
     
     private func broadcast(event: NoteEvent) {
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             for (listener) in self.listeners {
                 listener.notify(event)
             }
