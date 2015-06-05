@@ -34,12 +34,16 @@ public protocol NoteManager {
 
 public class TaskManager: NoteManager {
     
+    private var tasks: [Task] = []
+    
     public func fetchNotes() -> [Task] {
-
+        return tasks
     }
     
     public func create() -> Task {
-
+        let newTask = Task()
+        tasks.append(newTask)
+        return newTask
     }
     
     public func updateProperty(note: Task, property: String, value: AnyObject?) {
