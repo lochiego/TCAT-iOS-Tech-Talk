@@ -20,8 +20,8 @@ let IMPORTANT = "important"
 // Task
 
 public class Task: Note, Equatable {
-    private let id: NSUUID
-    private var properties: [String:Any] = [:]
+    public let id: NSUUID
+    private var properties: [String:AnyObject] = [:]
     public var name: String {
         get {
             return properties[NAME] as! String
