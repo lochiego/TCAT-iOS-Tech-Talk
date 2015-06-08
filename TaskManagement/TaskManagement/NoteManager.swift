@@ -34,6 +34,8 @@ public protocol NoteManager {
 
 public class TaskManager: NoteManager {
     
+    typealias T = Task
+    
     private var tasks: [Task] = []
     private var listeners: [NoteEventListener] = []
     
@@ -62,12 +64,12 @@ public class TaskManager: NoteManager {
         var newUrgent = note.urgent
         var newImportant = note.important
         
-        switch property {
-        case Constants.Task.NAME: newName = value as! String
-        case Constants.Task.DESCRIPTION: newDescription = value as! String
-        case Constants.Task.DEADLINE: newDeadline = value as! NSDate?
-        case Constants.Task.URGENT: newUrgent = value as! Bool
-        case Constants.Task.IMPORTANT: newImportant = value as! Bool
+        switch (property, value) {
+        case (Constants.Task.NAME, let name as String): newName = name
+        case (Constants.Task.DESCRIPTION, let description as String): newDescription = description
+        case (Constants.Task.DEADLINE, let deadline as NSDate?): newDeadline = deadline
+        case (Constants.Task.URGENT, let urgent as Bool): newUrgent = urgent
+        case (Constants.Task.IMPORTANT, let important as Bool): newImportant = important
         default: assert(false, "Property \(property) is not defined for Task")
         }
         
