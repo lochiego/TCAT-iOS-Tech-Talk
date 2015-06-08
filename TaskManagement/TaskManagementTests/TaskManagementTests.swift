@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import TaskManagement
+import Argo
 
 class TaskManagementTests: XCTestCase {
     
@@ -66,6 +67,16 @@ class TaskManagementTests: XCTestCase {
         XCTAssert(observer.notices == 3, "Did not receive events")
     }
     
+    func testSerialize() {
+        var orig = Task(name: "A Task", description: "Something", urgent: false, important: false)
+        var data = Serialize.toJson(orig)
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil)
+        XCTAssertNotNil(json, "Did not decode json")
+        if let j: AnyObject = json {
+            let task: Decoded<Task> = decode(j)
+            XCTAssertNotNil(task.value, "Did not deserialize json")
+        }
+    }
 }
 
 class TestObserver: NoteEventListener {

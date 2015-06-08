@@ -1,0 +1,5 @@
+pod 'Argo'
+use_frameworks!
+
+xcodeproj 'TaskManagement.xcodeproj'
+link_with 'TaskManagement', 'TaskManagementTests'
