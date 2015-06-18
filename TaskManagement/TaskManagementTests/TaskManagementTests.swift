@@ -11,6 +11,27 @@ import XCTest
 import TaskManagement
 import Argo
 
+extension Task {
+    func toDictionary() -> Dictionary<String, Any>
+    {
+        var dict = [
+            "id" : self.id,
+            "name" : self.name,
+            "description" : self.description,
+            "created" : self.created,
+            "deadline" : self.deadline,
+            "urgent" : self.urgent,
+            "important" : self.important
+            ] as Dictionary<String, Any>
+        
+        if self.deadline != nil {
+            dict["deadline"] = deadline!
+        }
+        
+        return dict
+    }
+}
+
 class TaskManagementTests: XCTestCase {
     
     override func setUp() {
@@ -42,6 +63,21 @@ class TaskManagementTests: XCTestCase {
         XCTAssertNotNil(reminderTest.alarm, "Alarm not set")
     }
     
+    func testTask() {
+        let firstTask = Task()
+        XCTAssertNotNil(firstTask.id, "ID is nil")
+        XCTAssertNotNil(firstTask.name, "Name is nil")
+        XCTAssertNotNil(firstTask.description, "Description is nil")
+        XCTAssertNotNil(firstTask.created, "created is nil")
+        XCTAssertNil(firstTask.deadline, "deadline is not nil")
+        XCTAssertNotNil(firstTask.urgent, "Urgent is nil")
+        XCTAssertNotNil(firstTask.important, "Important is nil")
+        
+        let taskDict = firstTask.toDictionary()
+//        XCTAssertNotNil(taskDict[Constants.Task.ID])
+        
+    }
+    
     func testTaskManager() {
         let manager = TaskManager()
         
@@ -50,6 +86,7 @@ class TaskManagementTests: XCTestCase {
         
         XCTAssert(manager.fetchNotes().count == 0, "Rogue note present in task manager")
         let firstTask = manager.create()
+        
         XCTAssert(manager.fetchNotes().count == 1, "Did not add task to list")
         
         manager.updateProperty(firstTask, property: "name", value: "Something")

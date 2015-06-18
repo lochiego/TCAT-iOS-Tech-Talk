@@ -33,6 +33,36 @@ public class Task: Note, Equatable {
         self.urgent = urgent
         self.important = important
     }
+    
+    init(taskDict: Dictionary<String,Any>)
+    {
+        self.id = taskDict[Constants.Task.ID]! as! String
+        self.name = taskDict[Constants.Task.NAME]! as! String
+        self.description = taskDict[Constants.Task.DESCRIPTION]! as! String
+        self.created = taskDict[Constants.Task.CREATED]! as! NSDate
+        self.deadline = taskDict[Constants.Task.DEADLINE] as! NSDate?
+        self.urgent = taskDict[Constants.Task.URGENT]! as! Bool
+        self.important = taskDict[Constants.Task.IMPORTANT]! as! Bool
+    }
+    
+    func toDictionary() -> Dictionary<String, Any>
+    {
+        var dict = [
+            Constants.Task.ID : self.id,
+            Constants.Task.NAME : self.name,
+            Constants.Task.DESCRIPTION : self.description,
+            Constants.Task.CREATED : self.created,
+            Constants.Task.DEADLINE : self.deadline,
+            Constants.Task.URGENT : self.urgent,
+            Constants.Task.IMPORTANT : self.important
+        ] as Dictionary<String, Any>
+        
+        if self.deadline != nil {
+            dict[Constants.Task.DEADLINE] = deadline!
+        }
+        
+        return dict
+    }
 }
 
 public func == (lhs: Task, rhs: Task) -> Bool {
