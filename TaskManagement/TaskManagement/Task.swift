@@ -18,6 +18,7 @@ public class Task: Note, Equatable {
     public let id: NSUUID
     public var name: String
     public var description: String
+    public var created: NSDate
     public var deadline: NSDate?
     public var urgent: Bool
     public var important: Bool
@@ -26,6 +27,7 @@ public class Task: Note, Equatable {
         self.id = id
         self.name = name
         self.description = description
+        self.created = NSDate()
         self.deadline = deadline
         self.urgent = urgent
         self.important = important
