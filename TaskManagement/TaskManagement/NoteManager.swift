@@ -25,7 +25,6 @@ public protocol NoteManager {
     typealias T: Note
     func fetchNotes() -> [T]
     func create() -> T
-    func updateProperty(note: T, property: String, value: AnyObject?)
     func delete(note: T)
     
     func addListener(listener: NoteEventListener)
@@ -53,34 +52,6 @@ public class TaskManager: NoteManager {
         broadcast(event)
         
         return newTask
-    }
-    
-    public func updateProperty(note: Task, property: String, value: AnyObject?) {
-        var newName = note.name
-        var newDescription = note.description
-        var newDeadline = note.deadline
-        var newUrgent = note.urgent
-        var newImportant = note.important
-        
-        switch property {
-        case Constants.Task.NAME: newName = value as! String
-        case Constants.Task.DESCRIPTION: newDescription = value as! String
-        case Constants.Task.DEADLINE: newDeadline = value as! NSDate?
-        case Constants.Task.URGENT: newUrgent = value as! Bool
-        case Constants.Task.IMPORTANT: newImportant = value as! Bool
-        default: assert(false, "Property \(property) is not defined for Task")
-        }
-        
-        let newNote = Task(id: note.id, name: newName, description: newDescription, deadline: newDeadline, urgent: newUrgent, important: newImportant)
-        
-        if let index = find(tasks, newNote) {
-            tasks[index] = newNote
-        }
-        else {
-            tasks.append(newNote)
-        }
-        
-        broadcast(NoteEvent(note: newNote, action: NoteAction.Updated))
     }
     
     public func delete(note: Task) {
