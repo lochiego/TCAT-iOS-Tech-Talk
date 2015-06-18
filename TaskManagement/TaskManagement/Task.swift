@@ -12,18 +12,16 @@
 import Foundation
 
 
-// Task
-
 public enum TaskProperty {
     case Name, Description, Deadline, Urgent, Important
 }
 
 public struct TaskEvent {
-    let task: Task
-    let action: TaskAction
-    let property: TaskProperty?
-    let oldValue: Any?
-    let newValue: Any?
+    public let task: Task
+    public let action: TaskAction
+    public let property: TaskProperty?
+    public let oldValue: Any?
+    public let newValue: Any?
     
     init(task: Task, action: TaskAction = .Updated, property: TaskProperty? = nil, oldValue: Any? = nil, newValue: Any? = nil)
     {

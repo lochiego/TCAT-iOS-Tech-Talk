@@ -23,6 +23,8 @@ public class TaskManager: InternalTaskListener {
     private var tasks: [Task] = []
     private var listeners: [TaskListener] = []
     
+    public static let sharedInstance  = TaskManager()
+    
     public init() {
         // no-op
     }
