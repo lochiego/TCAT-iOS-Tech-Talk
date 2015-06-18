@@ -10,8 +10,10 @@ import Foundation
 
 struct Constants {
     struct Task {
+        static let ID = "id"
         static let NAME = "name"
         static let DESCRIPTION = "description"
+        static let CREATED = "created"
         static let DEADLINE = "deadline"
         static let URGENT = "urgent"
         static let IMPORTANT = "important"

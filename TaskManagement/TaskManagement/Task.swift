@@ -16,17 +16,19 @@ import Runes
 // Task
 
 public class Task: Note, Equatable {
-    public let id: NSUUID
+    public let id: String
     public var name: String
     public var description: String
+    public let created: NSDate
     public var deadline: NSDate?
     public var urgent: Bool
     public var important: Bool
 
-    public init(id: NSUUID = NSUUID(), name: String = "", description: String = "", deadline: NSDate? = nil, urgent: Bool = false, important: Bool = false) {
+    public init(id: String = NSUUID().UUIDString, name: String = "", description: String = "", deadline: NSDate? = nil, urgent: Bool = false, important: Bool = false) {
         self.id = id
         self.name = name
         self.description = description
+        self.created = NSDate()
         self.deadline = deadline
         self.urgent = urgent
         self.important = important
@@ -39,14 +41,19 @@ public func == (lhs: Task, rhs: Task) -> Bool {
 
 extension Task: Decodable {
     static func create
-        (id: NSUUID)
+        (id: String)
         (name: String)
         (description: String)
+        (created: NSDate)
         (deadline: NSDate?)
         (urgent: Bool)
         (important: Bool)
     -> Task {
-        let task = Task(id: id, name: name, description: description, deadline: deadline, urgent: urgent, important: important)
+        var taskDict = ["id" : id, "name" : name, "description" : description, "created" : created, "urgent" : urgent, "important" : important] //as Dictionary<String, Any>
+        if deadline != nil {
+            taskDict["deadline"] = deadline
+        }
+        let task = Task(taskDict: taskDict)
         return task
     }
     
@@ -55,6 +62,7 @@ extension Task: Decodable {
             <^> j <| "id"
             <*> j <| "name"
             <*> j <| "description"
+            <*> j <| "created"
             <*> j <|? "deadline"
             <*> j <| "urgent"
             <*> j <| "important"
