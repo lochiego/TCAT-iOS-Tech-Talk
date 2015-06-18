@@ -22,41 +22,22 @@ class TaskManagementTests: XCTestCase {
         super.tearDown()
     }
     
-    func testReminder() {
-        let futureDate = NSDate()
-        var reminderTest = Reminder(name: "Dinner", description: "Chick-Fil-A tonight!", deadline:futureDate)
-        
-        XCTAssert(reminderTest.name == "Dinner", "Name not set")
-        XCTAssert(reminderTest.description == "Chick-Fil-A tonight!", "Description not set")
-        XCTAssert(reminderTest.deadline == futureDate, "Deadline not set")
-        XCTAssertNil(reminderTest.alarm, "Default alarm failed")
-        
-        
-        reminderTest = Reminder(name: "Dinner", description: "Chick-Fil-A tonight!", deadline:futureDate, alarm: NSDate())
-        XCTAssert(reminderTest.name == "Dinner", "Default initializer failed")
-        
-        XCTAssert(reminderTest.name == "Dinner", "Default initializer failed")
-        XCTAssert(reminderTest.description == "Chick-Fil-A tonight!", "Description not set")
-        XCTAssert(reminderTest.deadline == futureDate, "Deadline not set")
-        XCTAssertNotNil(reminderTest.alarm, "Alarm not set")
-    }
-    
     func testTaskManager() {
         let manager = TaskManager()
         
         let observer = TestObserver()
         manager.addListener(observer)
         
-        XCTAssert(manager.fetchNotes().count == 0, "Rogue note present in task manager")
-        let firstTask = manager.create()
-        XCTAssert(manager.fetchNotes().count == 1, "Did not add task to list")
+        XCTAssert(manager.fetchTasks().count == 0, "Rogue note present in task manager")
+        var firstTask = manager.create()
+        XCTAssert(manager.fetchTasks().count == 1, "Did not add task to list")
         
-        manager.updateProperty(firstTask, property: "name", value: "Something")
-        let updatedTask = manager.fetchNotes()[0]
+        firstTask.name = "Something"
+        let updatedTask = manager.fetchTasks()[0]
         XCTAssert(updatedTask.name == "Something", "Failed to update property")
         
         manager.delete(updatedTask)
-        XCTAssert(manager.fetchNotes().count == 0, "Failed to delete task properly")
+        XCTAssert(manager.fetchTasks().count == 0, "Failed to delete task properly")
         
         var sem = dispatch_semaphore_create(0)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -68,9 +49,9 @@ class TaskManagementTests: XCTestCase {
     
 }
 
-class TestObserver: NoteEventListener {
+class TestObserver: TaskListener {
     var notices: Int = 0
-    func notify(event: NoteEvent) {
+    func notify(event: TaskEvent) {
         notices++
     }
 }
