@@ -14,6 +14,9 @@
 		B79595561B34608D003D8769 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B79595541B34608D003D8769 /* LaunchScreen.xib */; };
 		B79595621B34608D003D8769 /* OpportunitEZTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79595611B34608D003D8769 /* OpportunitEZTests.swift */; };
 		B79595701B3461EE003D8769 /* TaskManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B795956F1B3461EE003D8769 /* TaskManagement.framework */; };
+		B79595D21B3466EE003D8769 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79595D11B3466EE003D8769 /* ListViewController.swift */; };
+		B79595D41B3466FF003D8769 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79595D31B3466FF003D8769 /* DetailViewController.swift */; };
+		B79595D61B346718003D8769 /* OpportunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79595D51B346718003D8769 /* OpportunityCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		B79595601B34608D003D8769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B79595611B34608D003D8769 /* OpportunitEZTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitEZTests.swift; sourceTree = "<group>"; };
 		B795956F1B3461EE003D8769 /* TaskManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TaskManagement.framework; path = ../TaskManagement.framework; sourceTree = "<group>"; };
+		B79595D11B3466EE003D8769 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B79595D31B3466FF003D8769 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B79595D51B346718003D8769 /* OpportunityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunityCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,9 @@
 				B79595521B34608D003D8769 /* Images.xcassets */,
 				B79595541B34608D003D8769 /* LaunchScreen.xib */,
 				B79595491B34608D003D8769 /* Supporting Files */,
+				B79595D11B3466EE003D8769 /* ListViewController.swift */,
+				B79595D31B3466FF003D8769 /* DetailViewController.swift */,
+				B79595D51B346718003D8769 /* OpportunityCell.swift */,
 			);
 			path = OpportunitEZ;
 			sourceTree = "<group>";
@@ -218,6 +227,9 @@
 			files = (
 				B795954E1B34608D003D8769 /* ViewController.swift in Sources */,
 				B795954C1B34608D003D8769 /* AppDelegate.swift in Sources */,
+				B79595D61B346718003D8769 /* OpportunityCell.swift in Sources */,
+				B79595D21B3466EE003D8769 /* ListViewController.swift in Sources */,
+				B79595D41B3466FF003D8769 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
