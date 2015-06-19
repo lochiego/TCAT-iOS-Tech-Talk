@@ -41,6 +41,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         nameField.text = task.name
         descriptionField.text = task.description
         importantSeg.selectedSegmentIndex = task.important ? 0 : 1
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
+            deadlineSeg.setTitle(nextMonthCode, forSegmentAtIndex: 0)
+            deadlineSeg.setTitle(nextWeekCode, forSegmentAtIndex: 1)
+            deadlineSeg.setTitle(tomorrowCode, forSegmentAtIndex: 2)
+            deadlineSeg.setTitle(lunchCode, forSegmentAtIndex: 3)
+        }
         deadlineSeg.selectedSegmentIndex = task.deadline.intValue()
     }
     
