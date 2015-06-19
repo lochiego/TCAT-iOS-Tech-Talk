@@ -13,7 +13,29 @@ import Foundation
 
 
 public enum TaskProperty {
-    case Name, Description, Deadline, Urgent, Important
+    case Name, Description, Deadline, Important
+}
+
+public enum Deadline {
+    case NextMonth, NextWeek, Tomorrow, Lunch
+    public func intValue() -> Int {
+        switch self {
+        case .NextMonth: return 0
+        case .NextWeek: return 1
+        case .Tomorrow: return 2
+        case .Lunch: return 3
+        }
+    }
+    
+    public static func fromInt(index: Int) -> Deadline {
+        switch index {
+        case 0: return .NextMonth
+        case 1: return .NextWeek
+        case 2: return .Tomorrow
+        case 3: return .Lunch
+        default: assert(false, "Unsupported enum index")
+        }
+    }
 }
 
 public struct TaskEvent {
@@ -47,24 +69,18 @@ public class Task: Equatable {
     public var description: String { didSet {
         self.notify(.Description, oldValue: oldValue, newValue: self.description)
         } }
-    public let created: NSDate
-    public var deadline: NSDate? { didSet {
+    public var deadline: Deadline { didSet {
         self.notify(.Deadline, oldValue: oldValue, newValue: self.deadline)
-        } }
-    public var urgent: Bool { didSet {
-        self.notify(.Urgent, oldValue: oldValue, newValue: self.urgent)
         } }
     public var important: Bool { didSet {
         self.notify(.Important, oldValue: oldValue, newValue: self.important)
         } }
 
-    init(id: NSUUID = NSUUID(), name: String = "", description: String = "", created: NSDate = NSDate(), deadline: NSDate? = nil, urgent: Bool = false, important: Bool = false) {
+    init(id: NSUUID = NSUUID(), name: String = "", description: String = "", deadline: Deadline = .NextMonth, important: Bool = false) {
         self.id = id
         self.name = name
         self.description = description
-        self.created = created
         self.deadline = deadline
-        self.urgent = urgent
         self.important = important
     }
     
