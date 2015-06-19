@@ -18,6 +18,24 @@ public enum TaskProperty {
 
 public enum Deadline {
     case NextMonth, NextWeek, Tomorrow, Lunch
+    public func intValue() -> Int {
+        switch self {
+        case .NextMonth: return 0
+        case .NextWeek: return 1
+        case .Tomorrow: return 2
+        case .Lunch: return 3
+        }
+    }
+    
+    public static func fromInt(index: Int) -> Deadline {
+        switch index {
+        case 0: return .NextMonth
+        case 1: return .NextWeek
+        case 2: return .Tomorrow
+        case 3: return .Lunch
+        default: assert(false, "Unsupported enum index")
+        }
+    }
 }
 
 public struct TaskEvent {
