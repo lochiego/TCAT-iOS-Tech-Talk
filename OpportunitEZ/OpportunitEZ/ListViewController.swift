@@ -30,7 +30,17 @@ class ListViewController: UITableViewController, TaskListener {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
-        TaskManager.sharedInstance.addListener(self)
+        let mgr = TaskManager.sharedInstance
+        mgr.addListener(self)
+
+        var firstTask = mgr.create()
+        dispatch_async(dispatch_get_main_queue(), {
+            firstTask.name = "Tech Talk"
+            firstTask.description = "Develop an app over some \u{1F355}"
+            firstTask.important = true
+            firstTask.deadline = .Lunch
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
