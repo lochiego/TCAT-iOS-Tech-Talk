@@ -1,0 +1,10 @@
+framework module TaskManagement {
+  umbrella header "TaskManagement.h"
+
+  export *
+  module * { export * }
+}
+
+module TaskManagement.Swift {
+    header "TaskManagement-Swift.h"
+}
