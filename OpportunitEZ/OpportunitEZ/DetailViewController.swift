@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TaskManagement
 
 class DetailViewController: UIViewController {
     
@@ -14,7 +15,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var importantSeg: UISegmentedControl!
     @IBOutlet weak var deadlineSeg: UISegmentedControl!
     @IBOutlet weak var descriptionField: UITextView!
-
+    
+    weak var task: Task!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
