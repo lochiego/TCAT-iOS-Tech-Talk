@@ -22,6 +22,15 @@ class TaskManagementTests: XCTestCase {
         super.tearDown()
     }
     
+    func testTask() {
+        let firstTask = TaskManager.sharedInstance.create()
+        XCTAssertNotNil(firstTask.id, "ID is nil")
+        XCTAssertNotNil(firstTask.name, "Name is nil")
+        XCTAssertNotNil(firstTask.description, "Description is nil")
+        XCTAssertTrue(firstTask.deadline == .NextMonth, "deadline is not nil")
+        XCTAssertFalse(firstTask.important, "Important is true")
+    }
+    
     func testTaskManager() {
         let manager = TaskManager()
         
