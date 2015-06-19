@@ -34,6 +34,7 @@ public enum Deadline {
         case 2: return .Tomorrow
         case 3: return .Lunch
         default: assert(false, "Unsupported enum index")
+            return .NextMonth
         }
     }
 }
