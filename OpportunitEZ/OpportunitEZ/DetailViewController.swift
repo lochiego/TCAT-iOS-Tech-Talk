@@ -9,7 +9,7 @@
 import UIKit
 import TaskManagement
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var importantSeg: UISegmentedControl!
@@ -21,23 +21,48 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        configureControls()
+        
+        populateControls()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func configureControls() {
+        nameField.delegate = self
+        nameField.addTarget(self, action: Selector("nameChanged"), forControlEvents: .EditingChanged)
+        importantSeg.addTarget(self, action: Selector("segChanged:"), forControlEvents: .ValueChanged)
+        deadlineSeg.addTarget(self, action: Selector("segChanged:"), forControlEvents: .ValueChanged)
+        descriptionField.delegate = self
     }
-    */
+    
+    func populateControls() {
+        nameField.text = task.name
+        descriptionField.text = task.description
+        importantSeg.selectedSegmentIndex = task.important ? 0 : 1
+        deadlineSeg.selectedSegmentIndex = task.deadline.intValue()
+    }
+    
+    // Update name
+    
+    func nameChanged() {
+        task.name = nameField.text
+    }
+    
+    // Update Important or Urgent
+    
+    func segChanged(sender: UISegmentedControl) {
+        if (sender === importantSeg) {
+            task.important = !task.important
+        }
+        else {
+            task.deadline = Deadline.fromInt(deadlineSeg.selectedSegmentIndex)
+        }
+    }
+    
+    // Text View Delegate
+    
+    func textViewDidChange(textView: UITextView) {
+        task.description = textView.text
+    }
 
 }
