@@ -18,7 +18,8 @@ class ListViewController: UITableViewController, TaskListener {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     
-    private var tasks: [Task] = []
+    private var hpTasks: [Task] = []
+    private var lpTasks: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +30,21 @@ class ListViewController: UITableViewController, TaskListener {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        
         let mgr = TaskManager.sharedInstance
+        for task in mgr.fetchTasks() {
+            if (task.important) {
+                hpTasks.append(task)
+            }
+            else {
+                lpTasks.append(task)
+            }
+        }
+        
+        hpTasks.sort(sortFunction)
+        lpTasks.sort(sortFunction)
+        
         mgr.addListener(self)
-
+		
         var firstTask = mgr.create()
         dispatch_async(dispatch_get_main_queue(), {
             firstTask.name = "Tech Talk"
@@ -40,7 +52,7 @@ class ListViewController: UITableViewController, TaskListener {
             firstTask.important = true
             firstTask.deadline = .Lunch
         })
-
+		
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,21 +63,21 @@ class ListViewController: UITableViewController, TaskListener {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "Important" : "Unimportant"
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return tasks.count
+        return section == 0 ? hpTasks.count : lpTasks.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as! OpportunityCell
 
-        let task = tasks[indexPath.row]
+        let task = indexPath.section == 0 ? hpTasks[indexPath.row] : lpTasks[indexPath.row]
         cell.nameLabel.text = task.name
         cell.detailLabel.text = task.description
         switch task.deadline {
@@ -100,8 +112,8 @@ class ListViewController: UITableViewController, TaskListener {
         if (segue.identifier == "add") {
             task = TaskManager.sharedInstance.create()
         }
-        else if let index = self.tableView.indexPathForSelectedRow()?.row {
-            task = tasks[index]
+        else if let index = self.tableView.indexPathForSelectedRow() {
+            task = index.section == 0 ? hpTasks[index.row] : lpTasks[index.row]
         }
         else {
             assert(false, "Task should not have been selected")
@@ -117,17 +129,41 @@ class ListViewController: UITableViewController, TaskListener {
         dispatch_async(dispatch_get_main_queue(), {
             switch event.action {
             case .Created:
-                self.tasks.append(event.task)
-                let paths = [NSIndexPath(forRow: self.tasks.count - 1, inSection: 0)]
+                self.lpTasks.append(event.task)
+                let paths = [NSIndexPath(forRow: self.lpTasks.count - 1, inSection: 1)]
                 self.tableView?.insertRowsAtIndexPaths(paths, withRowAnimation: .Automatic)
             case .Updated:
-                let index = find(self.tasks, event.task)!
-                self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+                if event.property == .Important {
+                    let task = event.task
+                    if event.newValue as! Bool == true {
+                        let index = find(self.lpTasks, task)!
+                        self.lpTasks.removeAtIndex(index)
+                        self.hpTasks.append(task)
+                    }
+                    else {
+                        let index = find(self.hpTasks, task)!
+                        self.hpTasks.removeAtIndex(index)
+                        self.lpTasks.append(task)
+                    }
+                }
+                self.hpTasks.sort(sortFunction)
+                self.lpTasks.sort(sortFunction)
+                self.tableView.reloadData()
             case .Deleted:
-                let index = find(self.tasks, event.task)!
-                self.tasks.removeAtIndex(index)
-                self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+                if let index = find(self.hpTasks, event.task) {
+                    self.hpTasks.removeAtIndex(index)
+                    self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+                }
+                else if let index = find(self.lpTasks, event.task) {
+                    self.lpTasks.removeAtIndex(index)
+                    self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 1)], withRowAnimation: .Automatic)
+                }
             }
         })
     }
+}
+
+func sortFunction(t1: Task, t2: Task) -> Bool {
+    return t1.deadline.intValue() > t2.deadline.intValue()
+   
 }
