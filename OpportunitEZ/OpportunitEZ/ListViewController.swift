@@ -28,7 +28,7 @@ class ListViewController: UITableViewController, TaskListener {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         let mgr = TaskManager.sharedInstance
         for task in mgr.fetchTasks() {
@@ -55,9 +55,9 @@ class ListViewController: UITableViewController, TaskListener {
 		
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        addButton.enabled = !editing
     }
 
     // MARK: - Table view data source
@@ -90,23 +90,26 @@ class ListViewController: UITableViewController, TaskListener {
         return cell
     }
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            if indexPath.section == 0 {
+                hpTasks.removeAtIndex(indexPath.row)
+            }
+            else {
+                lpTasks.removeAtIndex(indexPath.row)
+            }
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
+        self.setEditing(false, animated: true)
+
         let destination = segue.destinationViewController as! DetailViewController
         var task: Task? = nil
         if (segue.identifier == "add") {
