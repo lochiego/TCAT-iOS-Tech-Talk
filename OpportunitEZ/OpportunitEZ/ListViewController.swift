@@ -69,13 +69,44 @@ class ListViewController: UITableViewController, TaskListener {
     }
     */
 
-    /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        let destination = segue.destinationViewController as! DetailViewController
+        var task: Task? = nil
+        if (segue.identifier == "add") {
+            task = TaskManager.sharedInstance.create()
+        }
+        else if let index = self.tableView.indexPathForSelectedRow()?.row {
+            task = tasks[index]
+        }
+        else {
+            assert(false, "Task should not have been selected")
+        }
+        
+        destination.task = task
     }
-    */
+
+
+    // MARK: - Task Listener
+
+    func notify(event: TaskEvent) {
+        dispatch_async(dispatch_get_main_queue(), {
+            switch event.action {
+            case .Created:
+                self.tasks.append(event.task)
+                let paths = [NSIndexPath(forRow: self.tasks.count - 1, inSection: 0)]
+                self.tableView?.insertRowsAtIndexPaths(paths, withRowAnimation: .Automatic)
+            case .Updated:
+                let index = find(self.tasks, event.task)!
+                self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+            case .Deleted:
+                let index = find(self.tasks, event.task)!
+                self.tasks.removeAtIndex(index)
+                self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+            }
+        })
+    }
 }
