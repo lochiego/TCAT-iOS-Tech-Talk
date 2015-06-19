@@ -21,6 +21,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let recognizer = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
+        self.view.addGestureRecognizer(recognizer)
         
         configureControls()
         
@@ -42,6 +44,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         deadlineSeg.selectedSegmentIndex = task.deadline.intValue()
     }
     
+    func dismissKeyboard() {
+        nameField.resignFirstResponder()
+        descriptionField.resignFirstResponder()
+    }
+    
     // Update name
     
     func nameChanged() {
@@ -51,6 +58,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     // Update Important or Urgent
     
     func segChanged(sender: UISegmentedControl) {
+        dismissKeyboard()
+        
         if (sender === importantSeg) {
             task.important = !task.important
         }
