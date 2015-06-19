@@ -9,6 +9,11 @@
 import UIKit
 import TaskManagement
 
+let lunchCode = "\u{1F480}"
+let tomorrowCode = "\u{1F4A3}"
+let nextWeekCode = "\u{231B}"
+let nextMonthCode = "\u{1F4A4}"
+
 class ListViewController: UITableViewController, TaskListener {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -38,25 +43,31 @@ class ListViewController: UITableViewController, TaskListener {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return tasks.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as! OpportunityCell
 
-        // Configure the cell...
+        let task = tasks[indexPath.row]
+        cell.nameLabel.text = task.name
+        cell.detailLabel.text = task.description
+        switch task.deadline {
+        case .NextMonth: cell.iconLabel.text = nextMonthCode
+        case .NextWeek: cell.iconLabel.text = nextWeekCode
+        case .Tomorrow: cell.iconLabel.text = tomorrowCode
+        case .Lunch: cell.iconLabel.text = lunchCode
+        }
 
         return cell
     }
-    */
-    
+
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
