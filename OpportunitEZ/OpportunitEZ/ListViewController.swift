@@ -10,6 +10,8 @@ import UIKit
 
 class ListViewController: UITableViewController {
 
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

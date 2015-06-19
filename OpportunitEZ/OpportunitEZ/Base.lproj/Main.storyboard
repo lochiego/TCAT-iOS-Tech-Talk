@@ -8,7 +8,7 @@
         <!--Opportunity-->
         <scene sceneID="n3u-sJ-ga2">
             <objects>
-                <viewController id="PXF-lY-9lx" sceneMemberID="viewController">
+                <viewController id="PXF-lY-9lx" customClass="DetailViewController" customModule="OpportunitEZ" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tLV-iA-PAs"/>
                         <viewControllerLayoutGuide type="bottom" id="3Gi-8J-Isj"/>
@@ -112,6 +112,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Opportunity" id="1YF-Uy-Yne"/>
+                    <connections>
+                        <outlet property="deadlineSeg" destination="R0a-HG-aYJ" id="dCt-aT-21n"/>
+                        <outlet property="descriptionField" destination="ECJ-22-iEa" id="rOT-aP-eUE"/>
+                        <outlet property="importantSeg" destination="tSi-zC-WFF" id="jqa-PN-KXf"/>
+                        <outlet property="nameField" destination="H0y-ND-glY" id="5q9-xe-zFO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIi-bH-o2a" sceneMemberID="firstResponder"/>
             </objects>
@@ -120,13 +126,13 @@
         <!--Opportunities-->
         <scene sceneID="UvE-cg-9rh">
             <objects>
-                <tableViewController id="NPY-UT-Gsb" sceneMemberID="viewController">
+                <tableViewController id="NPY-UT-Gsb" customClass="ListViewController" customModule="OpportunitEZ" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8cc-8B-rE6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MAu-TE-t45">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MAu-TE-t45" customClass="OpportunityCell" customModule="OpportunitEZ" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MAu-TE-t45" id="Xu5-di-fbo">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -165,6 +171,12 @@
                                         <constraint firstItem="g4B-jy-1mu" firstAttribute="top" secondItem="Xu5-di-fbo" secondAttribute="top" id="xJF-Ng-cdL"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailLabel" destination="ZTW-a3-eME" id="ShO-vn-WGf"/>
+                                    <outlet property="iconLabel" destination="g4B-jy-1mu" id="E3V-XO-AC1"/>
+                                    <outlet property="nameLabel" destination="KDr-e0-tVo" id="0jX-aa-a2x"/>
+                                    <segue destination="PXF-lY-9lx" kind="show" identifier="edit" id="RJO-6S-4kJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -177,11 +189,14 @@
                     <navigationItem key="navigationItem" title="Opportunities" id="qKw-Ib-qu8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DHz-Kf-G18">
                             <connections>
-                                <segue destination="PXF-lY-9lx" kind="show" id="fWr-es-NVD"/>
+                                <segue destination="PXF-lY-9lx" kind="show" identifier="add" id="fWr-es-NVD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addButton" destination="DHz-Kf-G18" id="yqO-LK-Nav"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynC-pw-Cb9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -209,4 +224,7 @@
             <point key="canvasLocation" x="384" y="656"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="RJO-6S-4kJ"/>
+    </inferredMetricsTieBreakers>
 </document>

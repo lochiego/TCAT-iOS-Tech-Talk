@@ -9,6 +9,11 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var importantSeg: UISegmentedControl!
+    @IBOutlet weak var deadlineSeg: UISegmentedControl!
+    @IBOutlet weak var descriptionField: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
